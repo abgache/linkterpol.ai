@@ -96,8 +96,8 @@ if __name__ == "__main__":
             logger.log("Invalid or missing image path for prediction. Please provide a valid path using the --predict <image_path> argument.", v=False, Wh=True, mention=True)
             raise ValueError("Invalid or missing image path for prediction. Please provide a valid path using the --predict <image_path> argument.")
         
-        prediction = model.predict(image_path)
-        if int(prediction[0][0] >= 0.5):
+        prediction = model.predict(image_path, device=device)
+        if int(prediction >= 0.5):
             res = "Interpol"
         else:
             res = "Linkedin"
