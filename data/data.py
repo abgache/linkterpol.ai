@@ -27,7 +27,7 @@ class WebScraper():
                 raise ConnectionError("WebScraper: Failed to check answer from thebrainfox API.")
             result_data = await check_response.json()
 
-        save_dir = "data/linkedin" if result_data.get("correctAnswer", "") == "linkedin" else "data/interpol"
+        save_dir = "data/linkedin" if result_data.get("correct", "") == True else "data/interpol"
         os.makedirs(save_dir, exist_ok=True)
         save_path = f"{save_dir}/{person_data['id']}.png"
 

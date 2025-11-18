@@ -37,7 +37,7 @@ if __name__ == "__main__":
     logger = logger(discord_webhook=webhook_url) # créer le logger
 
     # Logging system info
-    logger.log(f"LinkePol.ai V{version}.", v=True, Wh=True, mention=False)
+    logger.log(f"linkterpol.ai V{version}.", v=True, Wh=True, mention=False)
     logger.log(f"PyTorch version: {torch.__version__}", v=True, Wh=True, mention=False)
     logger.log(f"CUDA status : {str(torch.cuda.is_available())}", v=True, Wh=True, mention=False)
     if torch.cuda.is_available():
