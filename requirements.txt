@@ -1,3 +1,4 @@
-torch==2.0.1
+torch>=2.0.1,<2.5
 requests
 pillow
+aiohttp

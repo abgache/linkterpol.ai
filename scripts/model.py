@@ -1,5 +1,5 @@
 import torch
-from torch.nn import Module, Linear, ReLU, Sigmoid, Sequential
+from torch.nn import Module, Linear, ReLU, Sigmoid, Sequential, Flatten
 
 class neural_net():
     def __init__(self, logger, dnn_config, epochs=25):
@@ -9,6 +9,7 @@ class neural_net():
         self.batch_size = dnn_config.get("batch_size", 32)
         self.path = dnn_config.get("model_path", "model/model.pth")
         self.learning_rate = dnn_config.get("learning_rate", 0.001)
+        self.model = None
     
     def check_model_path(self):
         return os.path.isfile(self.model_path) and os.path.getsize(self.model_path) > 0

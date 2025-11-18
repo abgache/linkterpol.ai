@@ -3,3 +3,5 @@ A neural network that predicts whether a photo originates from Interpol or Linke
 Version 1.0.0
 
 Still not trained
+
+Error while trainning, 0.000 loss
