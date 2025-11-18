@@ -9,8 +9,8 @@ class WebScraper():
     def __init__(self, logger, examples=100):
         self.logger = logger
         self.examples = examples
-        self.api = "https://interpol.thebrainfox.com/api/random-person"
-        self.api_check = "https://interpol.thebrainfox.com/api/check-answer"
+        self.api = "https://linkedin-or-interpol.com/api/random-person"
+        self.api_check = "https://linkedin-or-interpol.com/api/check-answer"
 
     async def create_example(self, session):
         async with session.get(self.api) as response:
@@ -19,7 +19,7 @@ class WebScraper():
                 raise ConnectionError("WebScraper: Failed to retrieve data from thebrainfox API.")
             person_data = await response.json()
 
-        image_url = f"https://interpol.thebrainfox.com/{person_data['photoUrl']}"
+        image_url = f"https://linkedin-or-interpol.com/{person_data['photoUrl']}"
 
         async with session.post(self.api_check, json={"personId": person_data["id"], "userChoice": "linkedin"}) as check_response:
             if check_response.status != 200:
