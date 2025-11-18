@@ -1,6 +1,7 @@
 import json
 import sys
 import os
+import asyncio
 import torch
 from scripts.time_log import time_log_module as tlm
 from scripts.logger import logger
@@ -48,14 +49,14 @@ if __name__ == "__main__":
     
     if train:
         # Load data
-        data = data(logger, overwrite_data=overwrite_data, examples=examples)
-        if data.check_data_path(): # si ya pas de données
-            data.build_data()      # on les crée
+        data_var = data(logger, overwrite_data=overwrite_data, examples=examples)
+        if not data_var.check_data_path() or overwrite_data: # si ya pas de données
+            asyncio.run(data_var.build_data())      # on les crée
         else:
             logger.log("Data path check: Data already exists, skipping data building.", v=True, Wh=True, mention=False)
-            data.load_data()
-        x_data, y_data = data.dnn_ready_data()
-        del data # pr la ram
+            data_var.load_data()
+        x_data, y_data = data_var.dnn_ready_data()
+        del data_var # pr la ram
 
         # Neural Network
         model = neural_net(logger, dnn_config, epochs=25)

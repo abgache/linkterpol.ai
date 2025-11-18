@@ -3,7 +3,7 @@ import os
 import asyncio
 import aiohttp
 from PIL import Image
-import random
+import random, time
 
 class WebScraper():
     def __init__(self, logger, examples=100):
@@ -78,28 +78,28 @@ class data():
         if not self.check_data_path():
             self.logger.log("Data loading failed: Data folders are missing or incompatible.", v=False, Wh=True, mention=True)
             raise FileNotFoundError("Data loading failed: Data folders are missing or incompatible.")
-        
+
         # Load interpol data
-        interpol_files = sorted(os.listdir("data/interpol"))
-        for file in interpol_files:
-            with open(os.path.join("data/interpol", file), "r") as f:
-                self.data[0].append(os.path.join("data/interpol", file))
+        self.data[0] = [os.path.join("data/interpol", f) for f in sorted(os.listdir("data/interpol"))]
+
         # Load linkedin data
-        linkedin_files = sorted(os.listdir("data/linkedin"))
-        for file in linkedin_files:
-            with open(os.path.join("data/linkedin", file), "r") as f:
-                self.data[1].append(os.path.join("data/interpol", file))
+        self.data[1] = [os.path.join("data/linkedin", f) for f in sorted(os.listdir("data/linkedin"))]
+
         self.check_data()
         if not self.data_loaded_status:
             self.logger.log("Data loading failed: Data could not be loaded properly.", v=False, Wh=True, mention=True)
             raise ValueError("Data loading failed: Data could not be loaded properly.")
-        
+
         return self.data
 
-    def build_data(self):
+    async def build_data(self):
         self.ws = WebScraper(self.logger, self.examples)
-        asyncio.run(self.ws.build_data())
+        await self.ws.build_data()  # juste await, pas asyncio.run
+        # Attendre que les dossiers soient créés
+        while not self.check_data_path():
+            await asyncio.sleep(1)
         self.load_data()
+    
         
     def dnn_ready_data(self): # 256*256 pixels images, 256*256*3=196608 input neurons
         if not self.check_data():
