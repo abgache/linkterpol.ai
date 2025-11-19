@@ -150,7 +150,5 @@ class data():
             self.logger.log("DNN ready data preparation failed: Data size mismatch.", v=False, Wh=True, mention=True)
             raise ValueError("DNN ready data preparation failed: Data size mismatch.")
         
-        self.logger.log(f"- [DEBUG] x_data {str(x_data[0])}.", v=True, Wh=True, mention=False)
-        
         return (x_data, y_data)
             
