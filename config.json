@@ -9,5 +9,5 @@
         "batch_size": 32,
         "learning_rate": 0.001
     },
-    "version": "1.0.0"
+    "version": "1.2.1"
 }
