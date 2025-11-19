@@ -139,16 +139,18 @@ class data():
                 continue
 
         # Randomly mix data
-        x_data = []
-        y_data = []
-        combined = list(zip(interpol_x, interpol_y)) + list(zip(linkedin_x, linkedin_y))
-        random.shuffle(combined)
+        x_data = list(list(interpol_x) + list(linkedin_x))
+        y_data = list(list(interpol_y) + list(linkedin_y))
+        random.shuffle(x_data)
+        random.shuffle(y_data)
         del interpol_x, interpol_y, linkedin_x, linkedin_y  # Free memory
 
         # Return data
         if not len(x_data) == len(y_data):
             self.logger.log("DNN ready data preparation failed: Data size mismatch.", v=False, Wh=True, mention=True)
             raise ValueError("DNN ready data preparation failed: Data size mismatch.")
+        
+        self.logger.log(f"- [DEBUG] x_data {str(x_data[0])}.", v=True, Wh=True, mention=False)
         
         return (x_data, y_data)
             

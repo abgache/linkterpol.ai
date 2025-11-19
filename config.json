@@ -1,7 +1,7 @@
 {
     "webhook_url": "",
     "model_path": "model/model.pth",
-    "examples": 100,
+    "examples": 1000,
     "dnn":{
         "model_path": "model/model.pth",
         "input_size": 196608,
